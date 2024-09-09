@@ -1,79 +1,131 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## DRUID - React Native SDK for AI Powered Customer KYC
 
-# Getting Started
+This is an example react native project created to demonstrate the integration of [druid-ogold-rn-sdk](https://www.npmjs.com/package/druid-ogold-rn-sdk).
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+The [SDK](https://www.npmjs.com/package/druid-ogold-rn-sdk) is a fully managed kit that takes care of the customer onboarding process (KYC) to ensure regulatory compliance. The demo example does the following:
 
-## Step 1: Start the Metro Server
+- Integrate the widget in the sample react native application.
+- Interact with the widget, and follow the KYC Process.
+- Return back to the main application.
+- View the KYC status.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+For the comprehensive list of status, page details and the entire workflow journey, please get in touch with the [team](https://thenovaweb.com/contact/) or write to us at [info@thenovaweb.com](mailto:info@thenovaweb.com)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Prerequisite
+
+For you to be able to clone and run this example demo, client secrets are required. Please make sure that you have required secrets to run the demo application.
+
+## Get started
+
+### Sample Run
+
+1. Clone the repo in your local machine
+
+   ```bash
+   git clone https://github.com/thenovaweb/react-native-sample-app-druid.git
+   ```
+
+2. Navigate to the directory
+
+   ```bash
+   cd react-native-sample-app-druid
+   ```
+
+3. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+4. Start the app and you're ready to go!
+
+   ```bash
+    npm run start
+   ```
+
+This will start the application. Now, you can choose between the various device options to run it on. After the server is started, the following screen will show up on the device.
+
+<img src="assets/images/index.png" alt="Application Home" width="250"/>
+
+You can begin by clicking on the `Get Started` button on the KYC Widget. Based on the status of the application, the user will be routed to the relevant screen.
+
+### Integrating with the current workflow
+
+#### Installation
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm install -i druid-ogold-rn-sdk
 ```
 
-## Step 2: Start your Application
+Once the package is installed, we can import the main widget by adding the following line of code.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+#### Usage
 
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```js
+import Widget, {getWidgetInfo} from '@thenovaweb/druid-ogold-rn-we-sdk';
 ```
 
-### For iOS
+#### Status Widget
 
-```bash
-# using npm
-npm run ios
+And now to activate the widget, modify and add this component - [components/StatusWidget.tsx](components/StatusWidget.tsx) to any part of the screen.
 
-# OR using Yarn
-yarn ios
+The componenent performs an API call and fetches the status of the application. Based on the responses, the functionaltity can be extended to meet the design structure of the application as required.
+
+#### Workflow Screen
+
+We also have to create an empty **screen** for the whole workflow to function. This implementation can be seen in [`app/onboard.tsx`](app/onboard.tsx) file.
+
+> This implementation is also being upgraded to work as a modal which can be inserted in any small portion of the screen, thereby allowing much granular control on the UI.
+
+```js
+...
+<View>
+   <Widget
+      phone: ""
+      email: ""
+      clientUuid: "xxxx-xxx-xx-x"
+      clientSecret: "xxxx-xxx-xx-x"
+      onSuccess: "navigateToParent"
+   />
+</View>
+...
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+#### Props
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- `phone`: Phone Number of the user
+- `email`: Email of the user
+- `clientUuid`: The unique identification number provided to the client.
+- `clientSecret`: The secret provided to the client.
+- `onSuccess`: A callback function to route back to the main parent page.
 
-## Step 3: Modifying your App
+The onSuccess function can be as simple as this:
 
-Now that you have successfully run the app, let's modify it.
+```js
+const redirectToHome = () => {
+  router.push('/');
+};
+```
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+**Note**: `client secrets` are mandatory without which the widget won't work. Similarly any one field among `phone` or `email` is also required.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Widget Details
 
-## Congratulations! :tada:
+We have created a component that acts as the main entrypoint - [`components/NewWidget.tsx`](components/NewWidget.tsx). This component does the following things:
 
-You've successfully run and modified your React Native App. :partying_face:
+- Fetches the customer status, and accordingly updates the status, button route and description of the main widget.
+- Styling based on the status with `green`, `amber` and `red` colors to indicate accepted, pending and rejected/failure statuses.
 
-### Now what?
+The following is a sample widget with the necessary information. For the comprehensive list of all the statuses, please reach out to the team.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+<img src="assets/images/widget.png" alt="Application Home" width="300"/>
 
-# Troubleshooting
+In the widget:
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- `Not Started` - indicates the status of the application.
+- `Get Started` - indicates the action that a user can perform, based on the current application state. This action changes with respect to the application status.
+- `Description` - _KYC is not..._ indicates the description for the status allowing informed call to action for the user.
 
-# Learn More
+Once the process is complete, the user will automatically be routed to the main application widget page. For further details of the workflow, please refer to main documentation page.
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+> Please connect with the [team](mailto:info@thenovaweb.com) for obtaining the client secrets.
