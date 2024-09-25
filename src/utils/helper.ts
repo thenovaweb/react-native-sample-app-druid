@@ -9,3 +9,7 @@ export const changeCase = (input: string) => {
   });
   return capitalizedWords.join(' ');
 };
+
+export const cleanInput = (input: string) => {
+  return input.replace(/\D/g, '');
+};

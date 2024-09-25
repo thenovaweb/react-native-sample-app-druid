@@ -6,7 +6,7 @@ import {styles} from '../assets/styles/styles';
 import ModalView from './ModalView';
 import {useNavigation} from '@react-navigation/native';
 
-export const StatusWidget = () => {
+export const StatusWidget = (phoneNumber: any) => {
   const navigation: any = useNavigation();
 
   const [visible, setVisible] = useState(false);
@@ -46,7 +46,7 @@ export const StatusWidget = () => {
     const widgetData: any = {
       clientSecret: process.env.EXPO_PUBLIC_CLIENT_SECRET,
       clientUuid: process.env.EXPO_PUBLIC_CLIENT_UUID,
-      phoneNumber: process.env.EXPO_PUBLIC_CLIENT_PHONE,
+      phoneNumber: phoneNumber,
     };
     const result: any = await getWidgetInfo(widgetData);
     setKycStatus(changeCase(result['status']));

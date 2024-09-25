@@ -1,19 +1,21 @@
 import {styles} from '../assets/styles/styles';
 import {View} from 'react-native';
 import {TopHeader} from '../components/TopHeader';
+import {PhoneField} from '../components/PhoneField';
 import {LiveRates} from '../components/LiveRates';
-import {StatusWidget} from '../components/StatusWidget';
 import {Wallet} from '../components/Wallet';
 import {Portfolio} from '../components/Portfolio';
 
-export default function HomeScreen() {
+const HomeScreen = ({route}: any) => {
   return (
     <View style={styles.container}>
       <TopHeader />
       <LiveRates />
-      <StatusWidget />
+      <PhoneField />
       <Wallet />
       <Portfolio />
     </View>
   );
-}
+};
+
+export default HomeScreen;

@@ -9,6 +9,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
+import WidgetScreen from './src/screens/WidgetScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import FullScreenView from './src/screens/FullScreenView';
 
@@ -23,6 +24,11 @@ function App(): React.JSX.Element {
             name="Home"
             component={HomeScreen}
             options={{title: 'Welcome'}}
+          />
+          <Stack.Screen
+            name="WidgetScreen"
+            component={WidgetScreen}
+            options={{title: 'Customer Status'}}
           />
           <Stack.Screen
             name="FullScreenView"
