@@ -6,7 +6,7 @@ import {styles} from '../assets/styles/styles';
 import ModalView from './ModalView';
 import {useNavigation} from '@react-navigation/native';
 
-export const StatusWidget = (phoneNumber: any) => {
+export const StatusWidget = (phone: any) => {
   const navigation: any = useNavigation();
 
   const [visible, setVisible] = useState(false);
@@ -44,9 +44,9 @@ export const StatusWidget = (phoneNumber: any) => {
   // This fetches the application status of the user. Based on the status, custom styling can be done to the buttons and status badge.
   const fetchWidgetInfo = async () => {
     const widgetData: any = {
-      clientSecret: process.env.EXPO_PUBLIC_CLIENT_SECRET,
-      clientUuid: process.env.EXPO_PUBLIC_CLIENT_UUID,
-      phoneNumber: phoneNumber,
+      clientSecret: process.env.REACT_APP_CLIENT_SECRET,
+      clientUuid: process.env.REACT_APP_CLIENT_UUID,
+      phoneNumber: phone.phone,
     };
     const result: any = await getWidgetInfo(widgetData);
     setKycStatus(changeCase(result['status']));
@@ -61,6 +61,7 @@ export const StatusWidget = (phoneNumber: any) => {
     // Comment out to open flow in a modal
     navigation.navigate('FullScreenView', {
       name: 'FullScreenView',
+      phone: phone.phone,
     });
   };
 

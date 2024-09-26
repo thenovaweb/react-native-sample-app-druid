@@ -5,7 +5,7 @@ import {StatusWidget} from '../components/StatusWidget';
 export default function WidgetScreen({route}: any) {
   return (
     <View style={styles.centerContainer}>
-      <StatusWidget phoneNumber={route.params.phoneNumber} />
+      <StatusWidget phone={route.params.phoneNumber} />
     </View>
   );
 }

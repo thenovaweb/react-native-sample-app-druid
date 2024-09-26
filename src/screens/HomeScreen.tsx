@@ -11,8 +11,8 @@ const HomeScreen = ({route}: any) => {
     <View style={styles.container}>
       <TopHeader />
       <LiveRates />
-      <PhoneField />
       <Wallet />
+      <PhoneField />
       <Portfolio />
     </View>
   );

@@ -23,17 +23,17 @@ function App(): React.JSX.Element {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{title: 'Welcome'}}
+            options={{title: 'Welcome', headerShown: false}}
           />
           <Stack.Screen
             name="WidgetScreen"
             component={WidgetScreen}
-            options={{title: 'Customer Status'}}
+            options={{title: 'Customer Status', headerShown: false}}
           />
           <Stack.Screen
             name="FullScreenView"
             component={FullScreenView}
-            options={{title: 'FullScreenView'}}
+            options={{title: 'FullScreenView', headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>
